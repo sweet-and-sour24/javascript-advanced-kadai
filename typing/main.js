@@ -3,6 +3,7 @@ let typed = '';
 
 const untypedfield = document.getElementById('untyped');
 const typedfield = document.getElementById('typed');
+const wrap = document.getElementById('wrap');
 
 const textLists = [
   // 'Hello World',
@@ -40,6 +41,13 @@ createText();
 
 const keyPress = e => {
   // console.log(e.key);
+
+  if(e.key !== untyped.substring(0, 1)) {
+    wrap.classList.add('mistyped');
+    return;
+  }
+  
+  wrap.classList.remove('mistyped');
   typed += untyped.substring(0, 1);
   untyped = untyped.substring(1);
   typedfield.textContent = typed;
