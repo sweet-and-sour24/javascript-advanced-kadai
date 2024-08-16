@@ -1,6 +1,8 @@
 let untyped = '';
+let typed = '';
 
 const untypedfield = document.getElementById('untyped');
+const typedfield = document.getElementById('typed');
 
 const textLists = [
   // 'Hello World',
@@ -23,6 +25,10 @@ const textLists = [
 
 const createText = () => {
   // console.log(Math.floor(Math.random() * textLists.length));
+
+  typed = '';
+  typedfield.textContent = typed;
+  
   let random = Math.floor(Math.random() * textLists.length);
 
   // untyped = textLists[1];
@@ -32,10 +38,22 @@ const createText = () => {
 
 createText();
 
-const keyPress = e => {};
+const keyPress = e => {
+  // console.log(e.key);
+  typed += untyped.substring(0, 1);
+  untyped = untyped.substring(1);
+  typedfield.textContent = typed;
+  untypedfield.textContent = untyped;
+
+  if(untyped === '') {
+    createText();
+  }
+};
 
 const rankCheck = score => {};
 
 const gameOver = id => {};
 
 const timer = () => {};
+
+document.addEventListener('keypress', keyPress);
