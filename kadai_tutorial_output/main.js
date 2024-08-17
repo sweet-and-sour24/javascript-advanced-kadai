@@ -1,5 +1,6 @@
 let untyped = '';
 let typed = '';
+let score = 0;
 
 const untypedfield = document.getElementById('untyped');
 const typedfield = document.getElementById('typed');
@@ -8,9 +9,6 @@ const start = document.getElementById('start');
 const count = document.getElementById('count');
 
 const textLists = [
-  // 'Hello World',
-  // 'This is my App',
-  // 'How are you?',
   'Hello World','This is my App','How are you?',
    'Today is sunny','I love JavaScript!','Good morning',
    'I am Japanese','Let it be','Samurai',
@@ -27,22 +25,17 @@ const textLists = [
 ];
 
 const createText = () => {
-  // console.log(Math.floor(Math.random() * textLists.length));
 
   typed = '';
   typedfield.textContent = typed;
   
   let random = Math.floor(Math.random() * textLists.length);
 
-  // untyped = textLists[1];
   untyped = textLists[random];
   untypedfield.textContent = untyped;
 };
 
-// createText();
-
 const keyPress = e => {
-  // console.log(e.key);
 
   if(e.key !== untyped.substring(0, 1)) {
     wrap.classList.add('mistyped');
@@ -53,7 +46,7 @@ const keyPress = e => {
     return;
   }
   
-  wrap.classList.remove('mistyped');
+  score++;
   typed += untyped.substring(0, 1);
   untyped = untyped.substring(1);
   typedfield.textContent = typed;
@@ -64,12 +57,31 @@ const keyPress = e => {
   }
 };
 
-const rankCheck = score => {};
+const rankCheck = score => {
+
+  let text = '';
+
+  if(score < 100) {
+    text = `あなたのランクはCです。\nBランクまであと${100 - score}文字です。`;
+  } else if(score < 200) {
+    text = `あなたのランクはBです。\nAランクまであと${200 - score}文字です。`;
+  } else if(score < 300) {
+    text = `あなたのランクはAです。\nSランクまであと${300 - score}文字です。`;
+  } else if(score >= 300) {
+    text = `あなたのランクはSです。\nおめでとうございます!`;
+  }
+
+  return `${score}文字打てました!\n${text}\n【OK】リトライ / 【キャンセル】終了`;
+};
 
 const gameOver = id => {
   clearInterval(id);
   
-  console.log('ゲーム終了!');
+  const result = confirm(rankCheck(score));
+
+  if(result == true) {
+    window.location.reload();
+  }
 };
 
 const timer = () => {
@@ -82,13 +94,10 @@ const timer = () => {
     count.textContent = time;
 
     if(time <= 0) {
-      // clearInterval(id);
       gameOver(id);
     }
   }, 1000)
 };
-
-// document.addEventListener('keypress', keyPress);
 
 start.addEventListener('click', () => {
 
