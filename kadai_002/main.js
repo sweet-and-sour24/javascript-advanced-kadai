@@ -7,6 +7,7 @@ const typedfield = document.getElementById('typed');
 const wrap = document.getElementById('wrap');
 const start = document.getElementById('start');
 const count = document.getElementById('count');
+const typecount = document.getElementById('typecount');
 
 const textLists = [
   'Hello World','This is my App','How are you?',
@@ -82,11 +83,15 @@ const rankCheck = score => {
 const gameOver = id => {
   clearInterval(id);
   
-  const result = confirm(rankCheck(score));
+  typedfield.style.display = 'none';
+  untypedfield.textContent = 'タイムアップ!';
 
-  if(result == true) {
-    window.location.reload();
-  }
+  setTimeout(() => {
+    const result = confirm(rankCheck(score));
+    if(result == true) {
+      window.location.reload();
+    }
+  }, 10);
 };
 
 const timer = () => {
