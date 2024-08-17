@@ -7,7 +7,6 @@ const typedfield = document.getElementById('typed');
 const wrap = document.getElementById('wrap');
 const start = document.getElementById('start');
 const count = document.getElementById('count');
-const typecount = document.getElementById('typecount');
 
 const textLists = [
   'Hello World','This is my App','How are you?',
